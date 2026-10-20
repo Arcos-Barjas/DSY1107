@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: pedidos360-mensajeria
+  rabbitmq:
+    addresses: localhost:5672,localhost:5673
+    username: labuser
+    password: labpass
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 1
+        default-requeue-rejected: false
+logging:
+  level:
+    cl.duoc.dsy1107.pedidos360: INFO

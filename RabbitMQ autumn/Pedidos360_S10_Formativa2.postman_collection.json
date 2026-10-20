@@ -1,0 +1,135 @@
+{
+  "info": {
+    "name": "DSY1107 - Pedidos360 Semana 09-10",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 Pedido normal",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/lab/pedidos/aceptar",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "lab",
+            "pedidos",
+            "aceptar"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pedidoId\": 105,\n  \"clienteEmail\": \"prueba@example.com\",\n  \"falloNotificaciones\": false,\n  \"falloCocina\": false,\n  \"falloDocumentos\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "02 Fallo notificaciones => Retry + DLQ",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/lab/pedidos/aceptar",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "lab",
+            "pedidos",
+            "aceptar"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pedidoId\": 106,\n  \"clienteEmail\": \"prueba@example.com\",\n  \"falloNotificaciones\": true,\n  \"falloCocina\": false,\n  \"falloDocumentos\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "03 Fallo cocina => Retry + DLQ",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/lab/pedidos/aceptar",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "lab",
+            "pedidos",
+            "aceptar"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"pedidoId\": 107,\n  \"clienteEmail\": \"prueba@example.com\",\n  \"falloNotificaciones\": false,\n  \"falloCocina\": true,\n  \"falloDocumentos\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "04 Topic pedido.aceptado",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8080/api/lab/eventos/topic?tipo=pedido.aceptado&pedidoId=108",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "lab",
+            "eventos",
+            "topic"
+          ]
+        }
+      }
+    }
+  ]
+}
